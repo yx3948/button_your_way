@@ -1,10 +1,10 @@
 // input.js
 // Text input, hole/colour toggles.
-// Auto-loads patterns from assets/1.jpg … assets/26.jpg
+// Auto-loads patterns from assets
 // Depends on: draw.js
 
 const textInput = document.getElementById('textInput');
-const patStatus = document.getElementById('patStatus');
+// const patStatus = document.getElementById('patStatus');
 
 // ── auto-load patterns from assets/ ──────
 // Name your files: assets/1.jpg, assets/2.jpg, ... assets/26.jpg
@@ -23,9 +23,9 @@ const PATTERN_COUNT = 26;
   );
 
   patterns = results.filter(img => img !== null);
-  patStatus.textContent = patterns.length > 0
-    ? `${patterns.length} patterns`
-    : 'no patterns found';
+  // patStatus.textContent = patterns.length > 0
+  //   ? `${patterns.length} patterns`
+  //   : 'no patterns found';
 
   textInput.focus();
 })();
