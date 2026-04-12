@@ -100,7 +100,7 @@ function renderButton(canvas, char, patImg, cfgKey, threadCol) {
     ctx.lineWidth   = tW;
     ctx.stroke();
 
-    // highlight
+  //    highlight
     ctx.beginPath(); ctx.moveTo(p1.x, p1.y);
     ctx.quadraticCurveTo(cpx + 0.4, cpy - 0.4, p2.x, p2.y);
     ctx.strokeStyle = 'rgba(216, 216, 216, 0.9)';
