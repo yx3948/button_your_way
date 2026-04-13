@@ -6,8 +6,6 @@
 const textInput = document.getElementById('textInput');
 // const patStatus = document.getElementById('patStatus');
 
-// ── auto-load patterns from assets/ ──────
-// Name your files: assets/1.jpg, assets/2.jpg, ... assets/26.jpg
 const PATTERN_COUNT = 26;
 
 (async () => {
@@ -69,12 +67,9 @@ document.getElementById('holeTabs').addEventListener('click', e => {
 });
 
 // ── thread colour ─────────────────────────
-document.getElementById('colorTabs').addEventListener('click', e => {
-  const btn = e.target.closest('[data-col]');
-  if (!btn) return;
-  document.querySelectorAll('#colorTabs .toggle').forEach(b => b.classList.remove('on'));
-  btn.classList.add('on');
-  currentColor = btn.dataset.col;
+document.getElementById('colorWheel').addEventListener('input', e => {
+  currentColor = e.target.value;
+  document.getElementById('colorSwatch').style.background = e.target.value;
   rebuildAll();
 });
 

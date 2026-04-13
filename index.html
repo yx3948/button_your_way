@@ -1,62 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Button Your Way</title>
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+
   <header>
     <span class="site-title">Button Your Way</span>
 
     <div class="control-group">
       <label>hole</label>
       <div class="toggle-group" id="holeTabs">
-        <button class="toggle on" data-cfg="four">4</button>
+        <button class="toggle on" data-cfg="nine">9</button>
         <button class="toggle" data-cfg="six">6</button>
-        <button class="toggle" data-cfg="nine">9</button>
+        <button class="toggle" data-cfg="four">4</button>
       </div>
     </div>
 
     <div class="control-group">
       <label>thread</label>
-      <div class="toggle-group" id="colorTabs">
-        <button class="toggle color-btn on" data-col="#111111" style="background:#111"></button>
-        <button class="toggle color-btn" data-col="#ffffff" style="background:#ddd;border-color:#bbb"></button>
-        <button class="toggle color-btn" data-col="#c93030" style="background:#c93030"></button>
+      <div class="toggle-group">
+        <button class="toggle" id="colorDisplay" onclick="document.getElementById('colorWheel').click()">
+          <div id="colorSwatch" style="background:#111;"></div>
+        </button>
       </div>
+      <input type="color" id="colorWheel" value="#111111" style="display:none">
     </div>
 
-    <!-- <span class="pat-status" id="patStatus">loading patterns...</span> -->
   </header>
 
-  <!-- button display -->
-  <!-- <main id="displayArea">
-    <div id="buttonsRow"></div>
-    <p class="hint" id="hint">start typing below</p>
-  </main> -->
-
-  <!-- text input -->
-  <!-- <footer>
-    <input
-      type="text"
-      id="textInput"
-      placeholder="type something..."
-      autocomplete="off"
-      spellcheck="false"
-    >
-    <button class="text-btn" id="clearBtn">clear</button>
-  </footer> -->
-  <!-- button display -->
   <main id="displayArea">
     <div id="buttonsRow"></div>
     <p class="hint" id="hint">start typing</p>
   </main>
 
-  <!-- hidden input to capture keystrokes -->
   <input id="textInput" style="position:fixed;opacity:0;pointer-events:none;">
 
   <script src="buttonThreads.js"></script>
@@ -65,5 +45,4 @@
   <script src="js/input.js"></script>
 
 </body>
-
 </html>

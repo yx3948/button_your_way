@@ -10,7 +10,7 @@
 /* ── page ── */
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  background: #ffffff;
+  background: #fdffd3;
   color: #111;
   height: 100vh;
   display: flex;
@@ -46,7 +46,7 @@ header {
   letter-spacing: 1px;
 }
 
-/* toggles */
+/* ── toggles ── */
 .toggle-group {
   display: flex;
   gap: 0;
@@ -80,59 +80,6 @@ header {
   color: #fff;
 }
 
-/* color toggles */
-.color-btn {
-  width: 22px;
-  height: 22px;
-  padding: 0;
-  border-radius: 50% !important;
-  border: 2px solid #ddd !important;
-}
-
-.color-btn.on {
-  border-color: #111 !important;
-}
-
-/* file input */
-.file-btn {
-  padding: 4px 10px;
-  font-size: 11px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  cursor: pointer;
-  color: #555;
-}
-
-.file-btn:hover {
-  background: #f5f5f5;
-}
-
-input[type="file"] {
-  display: none;
-}
-
-.pat-status {
-  font-size: 11px;
-  color: #aaa;
-}
-
-/* generic text button */
-.text-btn {
-  padding: 5px 12px;
-  font-size: 11px;
-  font-family: inherit;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  color: #555;
-  cursor: pointer;
-  margin-left: auto;
-}
-
-.text-btn:hover {
-  background: #f5f5f5;
-}
-
 /* ── display area ── */
 main {
   flex: 1;
@@ -141,27 +88,44 @@ main {
   justify-content: center;
   padding: 40px 20px;
   overflow: auto;
-  background: #fff;
+  /* background: rgba(255, 255, 255, 0.4); */
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  background: transparent;
 }
 
 #buttonsRow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  align-items: center;
-  justify-content: center;
-  max-width: 90vw;
+  position: relative;
+  width: 90vw;
+  height: 100%;
+  min-height: 300px;
+  background: transparent;
+}
+
+.btn-cell {
+  position: absolute;
+  cursor: grab;
+  width: 100px;
+  height: 100px;
+  background: transparent;
+}
+
+.btn-cell:active {
+  cursor: grabbing;
 }
 
 #buttonsRow canvas {
   display: block;
   width: 100px;
   height: 100px;
+  height: 100px;
+  background: transparent;
 }
 
 .btn-space {
   width: 10px;
-  height: 20px;
+  height: 100px;
   flex-shrink: 0;
 }
 
@@ -173,33 +137,20 @@ main {
   pointer-events: none;
 }
 
-/* footer {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 20px;
-  border-top: 1px solid #e0e0e0;
-  flex-shrink: 0;
+#colorDisplay {
+  padding: 0;
+  width: 32px;
+  height: 22px;
+  overflow: hidden;
+}
+
+#colorSwatch {
+  width: 100%;
+  height: 22px;
+  background: #111;
+}
+
+/* #buttonsRow canvas {
+  width: 100px; 
+  height: 100px;
 } */
-
-#textInput {
-  flex: 1;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 8px 12px;
-  font-size: 15px;
-  font-family: inherit;
-  letter-spacing: 3px;
-  outline: none;
-  color: #111;
-}
-
-#textInput:focus {
-  border-color: #aaa;
-}
-
-#textInput::placeholder {
-  color: #ccc;
-  font-size: 12px;
-  letter-spacing: 2px;
-}
