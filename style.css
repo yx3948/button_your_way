@@ -30,8 +30,8 @@ header {
 
 .site-title {
   font-size: 13px;
-  letter-spacing: 2px;
-  color: #999;
+  letter-spacing: 1px;
+  color: #8a8a8a;
 }
 
 .control-group {
@@ -154,3 +154,11 @@ main {
   width: 100px; 
   height: 100px;
 } */
+
+.thumb-btn {
+  width: 32px;
+  height: 26px;
+  padding: 0;
+  background-size: cover;
+  background-position: center;
+}

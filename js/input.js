@@ -75,3 +75,19 @@ document.getElementById('colorWheel').addEventListener('input', e => {
 
 // click display → focus input
 document.getElementById('displayArea').addEventListener('click', () => textInput.focus());
+
+document.getElementById('bgTabs').addEventListener('click', e => {
+  const btn = e.target.closest('[data-bg]');
+  if (!btn) return;
+  document.querySelectorAll('#bgTabs .toggle').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  const val = btn.dataset.bg;
+  const area = document.getElementById('displayArea');
+  if (val === 'none') {
+    area.style.backgroundImage = 'none';
+  } else {
+    area.style.backgroundImage = `url(${val})`;
+    area.style.backgroundSize = 'cover';
+    area.style.backgroundPosition = 'center';
+  }
+});

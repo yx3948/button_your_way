@@ -47,12 +47,15 @@ function renderButton(canvas, char, patImg, cfgKey, threadCol) {
   ctx.arc(cx, cy, R, 0, Math.PI * 2);
   ctx.clip();
 
+
   // 1. pattern or plain fill
   if (patImg) {
+    ctx.filter = 'brightness(1.3)';
     const iw = patImg.naturalWidth;
     const ih = patImg.naturalHeight;
     const sc = Math.max((R * 2) / iw, (R * 2) / ih) * 1.1;
     ctx.drawImage(patImg, cx - (iw * sc) / 2, cy - (ih * sc) / 2, iw * sc, ih * sc);
+    ctx.filter = 'none';
   } else {
     ctx.fillStyle = '#c8bfb0';
     ctx.fillRect(0, 0, W, W);
@@ -61,7 +64,7 @@ function renderButton(canvas, char, patImg, cfgKey, threadCol) {
   // 2. edge ring
   ctx.beginPath();
   ctx.arc(cx, cy, R - tW * 0.5, 0, Math.PI * 2);
-  ctx.strokeStyle = 'rgba(213, 213, 213, 0.35)';
+  ctx.strokeStyle = 'rgba(213, 213, 213, 0.15)';
   ctx.lineWidth = tW * 0.65;
   ctx.stroke();
 
@@ -131,8 +134,8 @@ function renderButton(canvas, char, patImg, cfgKey, threadCol) {
   ctx.restore();
 
   ctx.globalCompositeOperation = 'destination-over';
-  ctx.shadowColor = 'rgba(0,0,0,0.35)';
-  ctx.shadowBlur = 8;
+  ctx.shadowColor = 'rgba(255, 255, 255, 0.83)';
+  ctx.shadowBlur = 10;
   ctx.shadowOffsetX = 2;
   ctx.shadowOffsetY = 2;
   ctx.beginPath();
