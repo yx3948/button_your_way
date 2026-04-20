@@ -28,6 +28,11 @@ header {
   flex-wrap: wrap;
 }
 
+.hint {
+  text-align: center;
+  line-height: 2;
+}
+
 .site-title {
   font-size: 13px;
   letter-spacing: 1px;

@@ -1,5 +1,5 @@
 // draw.js
-// Manages the live button display with drag support.
+// Manages the live button display with drag + scroll rotation + hover tilt.
 // Depends on: button.js
 
 let sequence     = [];
@@ -10,16 +10,15 @@ let currentColor = '#111111';
 const buttonsRow = document.getElementById('buttonsRow');
 const hint       = document.getElementById('hint');
 
-const BTN_DISPLAY = 100; // px — must match CSS width/height of canvas
+const BTN_DISPLAY = 100;
 const GAP         = 8;
 
 // drag state
-let dragEl    = null;
-let dragOffX  = 0;
-let dragOffY  = 0;
-let dragIdx   = -1;
+let dragEl   = null;
+let dragOffX = 0;
+let dragOffY = 0;
+let dragIdx  = -1;
 
-// ── layout helper — places buttons in a row initially ────────────
 function getInitialPosition(index) {
   const container = buttonsRow.getBoundingClientRect();
   const perRow    = Math.floor((container.width || window.innerWidth * 0.9) / (BTN_DISPLAY + GAP));
@@ -36,11 +35,12 @@ function rebuildAll() {
   if (sequence.length === 0) { hint.style.display = 'block'; return; }
   hint.style.display = 'none';
   sequence.forEach((item, i) => {
-    if (!item.x && !item.y) {
+    if (item.x == null) {
       const pos = getInitialPosition(i);
       item.x = pos.x;
       item.y = pos.y;
     }
+    if (item.rotation == null) item.rotation = 0;
     buttonsRow.appendChild(_makeCell(item, i));
   });
 }
@@ -49,8 +49,9 @@ function appendCell(item) {
   hint.style.display = 'none';
   const i   = sequence.length - 1;
   const pos = getInitialPosition(i);
-  item.x    = pos.x;
-  item.y    = pos.y;
+  item.x        = pos.x;
+  item.y        = pos.y;
+  item.rotation = 0;
   buttonsRow.appendChild(_makeCell(item, i));
 }
 
@@ -65,25 +66,45 @@ function clearDisplay() {
   hint.style.display = 'block';
 }
 
-// ── create one button cell ────────────────────────────────────────
 function _makeCell(item, idx) {
-  if (item.char === ' ') return document.createElement('div'); // skip spaces visually
+  if (item.char === ' ') return document.createElement('div');
 
-  const cell          = document.createElement('div');
-  cell.className      = 'btn-cell';
-  cell.style.left     = item.x + 'px';
-  cell.style.top      = item.y + 'px';
-  cell.dataset.idx    = idx;
+  const cell       = document.createElement('div');
+  cell.className   = 'btn-cell';
+  cell.style.left      = item.x + 'px';
+  cell.style.top       = item.y + 'px';
+  cell.style.transform = `rotate(${item.rotation}deg)`;
+  cell.dataset.idx = idx;
 
-  const canvas   = document.createElement('canvas');
-  canvas.width   = RENDER_SIZE;
-  canvas.height  = RENDER_SIZE;
+  const canvas  = document.createElement('canvas');
+  canvas.width  = RENDER_SIZE;
+  canvas.height = RENDER_SIZE;
   cell.appendChild(canvas);
 
   const patImg = patterns.length > 0 ? patterns[item.patIdx] : null;
   renderButton(canvas, item.char, patImg, currentCfg, currentColor);
 
-  // drag events
+  // ── scroll to rotate ──────────────────
+  cell.addEventListener('wheel', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    cell.style.transition = 'none';
+    item.rotation += e.deltaY > 0 ? 5 : -5;
+    cell.style.transform = `rotate(${item.rotation}deg)`;
+  }, { passive: false });
+
+  // ── hover tilt ────────────────────────
+  cell.addEventListener('mouseenter', () => {
+    cell.style.transition = 'transform 0.3s ease';
+    cell.style.transform  = `rotate(${item.rotation + 10}deg)`;
+  });
+
+  cell.addEventListener('mouseleave', () => {
+    cell.style.transition = 'transform 0.3s ease';
+    cell.style.transform  = `rotate(${item.rotation}deg)`;
+  });
+
+  // ── drag ──────────────────────────────
   cell.addEventListener('mousedown', onMouseDown);
   cell.addEventListener('touchstart', onTouchStart, { passive: false });
 
@@ -121,12 +142,12 @@ document.addEventListener('touchend', () => endDrag());
 
 // ── drag logic ────────────────────────────────────────────────────
 function startDrag(el, clientX, clientY) {
-  dragEl  = el;
-  dragIdx = parseInt(el.dataset.idx);
+  dragEl   = el;
+  dragIdx  = parseInt(el.dataset.idx);
   const rect = el.getBoundingClientRect();
   dragOffX = clientX - rect.left;
   dragOffY = clientY - rect.top;
-  el.style.zIndex = 999;
+  el.style.zIndex  = 999;
   el.style.opacity = '0.85';
 }
 
@@ -136,14 +157,13 @@ function moveDrag(clientX, clientY) {
   const y = clientY - containerRect.top  - dragOffY;
   dragEl.style.left = x + 'px';
   dragEl.style.top  = y + 'px';
-  // update stored position
   sequence[dragIdx].x = x;
   sequence[dragIdx].y = y;
 }
 
 function endDrag() {
   if (!dragEl) return;
-  dragEl.style.zIndex = '';
+  dragEl.style.zIndex  = '';
   dragEl.style.opacity = '1';
   dragEl  = null;
   dragIdx = -1;

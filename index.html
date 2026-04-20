@@ -41,15 +41,20 @@
           style="background-image:url('assets/bg/2.jpg')"></button>
         <button class="toggle thumb-btn" data-bg="assets/bg/3.jpg"
           style="background-image:url('assets/bg/3.jpg')"></button>
+        <label class="toggle" for="bgUpload" style="cursor:pointer;">+</label>
+        <input type="file" id="bgUpload" accept="image/*" style="display:none">
         <button class="toggle" data-bg="none">✕</button>
+        
       </div>
     </div>
+
+    <button class="toggle" id="downloadBtn" style="margin-left:auto;">download</button>
 
   </header>
 
   <main id="displayArea">
     <div id="buttonsRow"></div>
-    <p class="hint" id="hint">start typing</p>
+    <p class="hint" id="hint">start typing<br>drag to place<br>scroll to rotate</p>
   </main>
 
   <input id="textInput" style="position:fixed;opacity:0;pointer-events:none;">
@@ -58,7 +63,7 @@
   <script src="js/button.js"></script>
   <script src="js/draw.js"></script>
   <script src="js/input.js"></script>
-
+  <script src="js/download.js"></script>
 </body>
 
 </html>
