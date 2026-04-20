@@ -2,38 +2,31 @@
 // Depends on: draw.js, button.js
 
 document.getElementById('downloadBtn').addEventListener('click', () => {
-  const area = document.getElementById('displayArea');
-  const row  = document.getElementById('buttonsRow');
-  const W    = area.offsetWidth;
-  const H    = area.offsetHeight;
+  const area    = document.getElementById('displayArea');
+  const aRect   = area.getBoundingClientRect();
+  const W       = Math.round(aRect.width);
+  const H       = Math.round(aRect.height);
+  const btnSize = 100; // CSS display size of each button
+
   const exp  = document.createElement('canvas');
   exp.width  = W;
   exp.height = H;
   const ctx  = exp.getContext('2d');
 
-  const btnSize = 100; // must match CSS width/height of .btn-cell
-
-  const finish = () => {
-    // offset of buttonsRow within displayArea
-    const aRect = area.getBoundingClientRect();
-    const rRect = row.getBoundingClientRect();
-    const offX  = rRect.left - aRect.left;
-    const offY  = rRect.top  - aRect.top;
-
+  const drawButtons = () => {
     const cells = area.querySelectorAll('.btn-cell');
     cells.forEach(cell => {
       const idx  = parseInt(cell.dataset.idx);
       const item = sequence[idx];
       if (!item) return;
 
-      // item.x/y is relative to buttonsRow, add offset for displayArea
-      const x   = item.x + offX;
-      const y   = item.y + offY;
-      const rot = (item.rotation || 0) * Math.PI / 180;
-      const cx  = x + btnSize / 2;
-      const cy  = y + btnSize / 2;
+      // get center point from screen (works correctly even when rotated)
+      const cRect = cell.getBoundingClientRect();
+      const cx    = cRect.left + cRect.width / 2 - aRect.left;
+      const cy    = cRect.top + cRect.height / 2 - aRect.top;
+      const rot   = (item.rotation || 0) * Math.PI / 180;
 
-      // re-render fresh canvas to avoid taint
+      // re-render fresh to avoid taint
       const tmp    = document.createElement('canvas');
       tmp.width    = RENDER_SIZE;
       tmp.height   = RENDER_SIZE;
@@ -47,13 +40,16 @@ document.getElementById('downloadBtn').addEventListener('click', () => {
       ctx.restore();
     });
 
-    // readable date filename
+    // save
     const now  = new Date();
-    const date = now.getFullYear() + '-'
-      + String(now.getMonth() + 1).padStart(2, '0') + '-'
-      + String(now.getDate()).padStart(2, '0') + '_'
-      + String(now.getHours()).padStart(2, '0')
-      + String(now.getMinutes()).padStart(2, '0');
+    const date = [
+      now.getFullYear(),
+      String(now.getMonth() + 1).padStart(2, '0'),
+      String(now.getDate()).padStart(2, '0'),
+    ].join('-') + '_' + [
+      String(now.getHours()).padStart(2, '0'),
+      String(now.getMinutes()).padStart(2, '0'),
+    ].join('');
 
     const a    = document.createElement('a');
     a.download = `buttonyourway_${date}.png`;
@@ -63,7 +59,7 @@ document.getElementById('downloadBtn').addEventListener('click', () => {
     document.body.removeChild(a);
   };
 
-  // draw background using "cover" logic (matches CSS background-size: cover)
+  // background — simulate CSS background-size: cover + center
   const bgStyle = area.style.backgroundImage;
   const bgUrl   = bgStyle && bgStyle !== 'none'
     ? bgStyle.replace(/^url\(["']?/, '').replace(/["']?\)$/, '')
@@ -73,25 +69,22 @@ document.getElementById('downloadBtn').addEventListener('click', () => {
     const img       = new Image();
     img.crossOrigin = 'anonymous';
     img.onload = () => {
-      const iw    = img.naturalWidth;
-      const ih    = img.naturalHeight;
-      const scale = Math.max(W / iw, H / ih);
-      const dw    = iw * scale;
-      const dh    = ih * scale;
-      const dx    = (W - dw) / 2;
-      const dy    = (H - dh) / 2;
-      ctx.drawImage(img, dx, dy, dw, dh);
-      finish();
+      // cover: scale to fill, crop overflow, center
+      const ratio  = Math.max(W / img.width, H / img.height);
+      const newW   = img.width * ratio;
+      const newH   = img.height * ratio;
+      ctx.drawImage(img, (W - newW) / 2, (H - newH) / 2, newW, newH);
+      drawButtons();
     };
     img.onerror = () => {
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(0, 0, W, H);
-      finish();
+      drawButtons();
     };
     img.src = bgUrl;
   } else {
     ctx.fillStyle = '#ffffff';
     ctx.fillRect(0, 0, W, H);
-    finish();
+    drawButtons();
   }
 });
