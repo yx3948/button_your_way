@@ -20,13 +20,12 @@ document.getElementById('downloadBtn').addEventListener('click', () => {
       const item = sequence[idx];
       if (!item) return;
 
-      // get center point from screen (works correctly even when rotated)
+      // get center point from screen
       const cRect = cell.getBoundingClientRect();
       const cx    = cRect.left + cRect.width / 2 - aRect.left;
       const cy    = cRect.top + cRect.height / 2 - aRect.top;
       const rot   = (item.rotation || 0) * Math.PI / 180;
 
-      // re-render fresh to avoid taint
       const tmp    = document.createElement('canvas');
       tmp.width    = RENDER_SIZE;
       tmp.height   = RENDER_SIZE;
@@ -59,7 +58,6 @@ document.getElementById('downloadBtn').addEventListener('click', () => {
     document.body.removeChild(a);
   };
 
-  // background — simulate CSS background-size: cover + center
   const bgStyle = area.style.backgroundImage;
   const bgUrl   = bgStyle && bgStyle !== 'none'
     ? bgStyle.replace(/^url\(["']?/, '').replace(/["']?\)$/, '')
@@ -69,7 +67,6 @@ document.getElementById('downloadBtn').addEventListener('click', () => {
     const img       = new Image();
     img.crossOrigin = 'anonymous';
     img.onload = () => {
-      // cover: scale to fill, crop overflow, center
       const ratio  = Math.max(W / img.width, H / img.height);
       const newW   = img.width * ratio;
       const newH   = img.height * ratio;
