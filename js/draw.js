@@ -30,6 +30,7 @@ function getInitialPosition(index) {
   };
 }
 
+
 function rebuildAll() {
   buttonsRow.innerHTML = '';
   if (sequence.length === 0) { hint.style.display = 'block'; return; }

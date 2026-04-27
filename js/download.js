@@ -51,7 +51,7 @@ document.getElementById('downloadBtn').addEventListener('click', () => {
     ].join('');
 
     const a = document.createElement('a');
-    a.download = `buttonyourway_${date}.png`;
+    a.download = `buttonsyourway_${date}.png`;
     a.href = exp.toDataURL('image/png');
     document.body.appendChild(a);
     a.click();
