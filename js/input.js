@@ -8,7 +8,7 @@ const PATTERN_COUNT = 26;
     Array.from({ length: PATTERN_COUNT }, (_, i) =>
       new Promise(resolve => {
         const img = new Image();
-        img.onload  = () => resolve(img);
+        img.onload = () => resolve(img);
         img.onerror = () => resolve(null);
         img.src = `assets/${i + 1}.jpg`;
       })
@@ -20,13 +20,16 @@ const PATTERN_COUNT = 26;
 
 // ── typing ────────────────────────────────
 textInput.addEventListener('input', () => {
+  const ascii = document.getElementById('buttonAscii');
+  if (ascii) ascii.remove();
+
   const newText = textInput.value;
-  const diff    = newText.length - sequence.length;
+  const diff = newText.length - sequence.length;
 
   if (diff > 0) {
     for (let i = sequence.length; i < newText.length; i++) {
       const item = {
-        char:   newText[i],
+        char: newText[i],
         patIdx: patterns.length > 0 ? Math.floor(Math.random() * patterns.length) : 0,
       };
       sequence.push(item);
@@ -63,13 +66,13 @@ document.getElementById('bgTabs').addEventListener('click', e => {
   if (!btn) return;
   document.querySelectorAll('#bgTabs .toggle').forEach(b => b.classList.remove('on'));
   btn.classList.add('on');
-  const val  = btn.dataset.bg;
+  const val = btn.dataset.bg;
   const area = document.getElementById('displayArea');
   if (val === 'none') {
     area.style.backgroundImage = 'none';
   } else {
-    area.style.backgroundImage    = `url(${val})`;
-    area.style.backgroundSize     = 'cover';
+    area.style.backgroundImage = `url(${val})`;
+    area.style.backgroundSize = 'cover';
     area.style.backgroundPosition = 'center';
   }
 });
@@ -82,20 +85,20 @@ document.getElementById('bgUpload').addEventListener('change', e => {
   const file = e.target.files[0];
   if (!file || uploadCount >= MAX_UPLOADS) return;
 
-  const url  = URL.createObjectURL(file);
+  const url = URL.createObjectURL(file);
   const area = document.getElementById('displayArea');
-  area.style.backgroundImage    = `url(${url})`;
-  area.style.backgroundSize     = 'cover';
+  area.style.backgroundImage = `url(${url})`;
+  area.style.backgroundSize = 'cover';
   area.style.backgroundPosition = 'center';
   document.querySelectorAll('#bgTabs .toggle').forEach(b => b.classList.remove('on'));
 
   // insert new thumbnail before the + label
   const uploadLabel = document.querySelector('label[for="bgUpload"]');
-  const newBtn      = document.createElement('button');
-  newBtn.className  = 'toggle thumb-btn on';
+  const newBtn = document.createElement('button');
+  newBtn.className = 'toggle thumb-btn on';
   newBtn.dataset.bg = url;
-  newBtn.style.backgroundImage    = `url(${url})`;
-  newBtn.style.backgroundSize     = 'cover';
+  newBtn.style.backgroundImage = `url(${url})`;
+  newBtn.style.backgroundSize = 'cover';
   newBtn.style.backgroundPosition = 'center';
   document.getElementById('bgTabs').insertBefore(newBtn, uploadLabel);
 
@@ -103,8 +106,8 @@ document.getElementById('bgUpload').addEventListener('change', e => {
   newBtn.addEventListener('click', () => {
     document.querySelectorAll('#bgTabs .toggle').forEach(b => b.classList.remove('on'));
     newBtn.classList.add('on');
-    area.style.backgroundImage    = `url(${url})`;
-    area.style.backgroundSize     = 'cover';
+    area.style.backgroundImage = `url(${url})`;
+    area.style.backgroundSize = 'cover';
     area.style.backgroundPosition = 'center';
   });
 
