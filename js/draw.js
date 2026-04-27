@@ -10,7 +10,7 @@ let currentColor = '#111111';
 const buttonsRow = document.getElementById('buttonsRow');
 const hint       = document.getElementById('hint');
 
-const BTN_DISPLAY = 100;
+let BTN_DISPLAY = 100;
 const GAP         = 8;
 
 // drag state
@@ -168,3 +168,14 @@ function endDrag() {
   dragEl  = null;
   dragIdx = -1;
 }
+
+document.getElementById('sizeSlider').addEventListener('input', e => {
+  BTN_DISPLAY = parseInt(e.target.value);
+  document.querySelectorAll('.btn-cell').forEach(cell => {
+    cell.style.width  = BTN_DISPLAY + 'px';
+    cell.style.height = BTN_DISPLAY + 'px';
+    const canvas = cell.querySelector('canvas');
+    canvas.style.width  = BTN_DISPLAY + 'px';
+    canvas.style.height = BTN_DISPLAY + 'px';
+  });
+});

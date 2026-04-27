@@ -4,17 +4,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Button Your Way</title>
+  <title>Buttons Your Way</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
   <header>
-    <span class="site-title">Button Your Way</span>
+    <span class="site-title">Buttons Your Way</span>
 
     <div class="control-group">
-      <label>hole</label>
+      <label>Hole</label>
       <div class="toggle-group" id="holeTabs">
         <button class="toggle on" data-cfg="nine">9</button>
         <button class="toggle" data-cfg="six">6</button>
@@ -23,7 +23,7 @@
     </div>
 
     <div class="control-group">
-      <label>thread</label>
+      <label>Thread</label>
       <div class="toggle-group">
         <button class="toggle" id="colorDisplay" onclick="document.getElementById('colorWheel').click()">
           <div id="colorSwatch" style="background:#111;"></div>
@@ -33,7 +33,12 @@
     </div>
 
     <div class="control-group">
-      <label>background</label>
+      <label>size</label>
+      <input type="range" id="sizeSlider" min="50" max="100" value="100">
+    </div>
+    
+    <div class="control-group">
+      <label>Background</label>
       <div class="toggle-group" id="bgTabs">
         <button class="toggle thumb-btn" data-bg="assets/bg/1.jpg"
           style="background-image:url('assets/bg/1.jpg')"></button>
@@ -43,18 +48,17 @@
           style="background-image:url('assets/bg/3.jpg')"></button>
         <label class="toggle" for="bgUpload" style="cursor:pointer;">+</label>
         <input type="file" id="bgUpload" accept="image/*" style="display:none">
-        <button class="toggle" data-bg="none">✕</button>
-        
+        <button class="toggle" data-bg="none">X</button>
       </div>
     </div>
 
-    <button class="toggle" id="downloadBtn" style="margin-left:auto;">download</button>
-
+    <button class="toggle" id="downloadBtn">Download</button>
   </header>
 
   <main id="displayArea">
     <div id="buttonsRow"></div>
-    <p class="hint" id="hint">start typing<br>drag to place<br>scroll to rotate</p>
+    <p class="hint" id="hint">Decorate your images with Buttons Your Way!<br><br>Start Typing<br>Drag Buttons to
+      Place<br>Hover + Scroll to Rotate</p>
   </main>
 
   <input id="textInput" style="position:fixed;opacity:0;pointer-events:none;">

@@ -1,4 +1,12 @@
-/* ── reset ── */
+/*font*/
+@font-face {
+  font-family: 'Kalice';
+  src: url('assets/fonts/Kalice-Regular.woff2') format('woff2'),
+       url('assets/fonts/Kalice-Italic.woff2') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+/* reset */
 *,
 *::before,
 *::after {
@@ -7,113 +15,123 @@
   padding: 0;
 }
 
-/* ── page ── */
+/* page */
 body {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  background: #fdffd3;
+  font-family: 'Kalice', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background: #ffffff;
   color: #111;
   height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* ── header ── */
+/* floating sidebar */
 header {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  padding: 12px 20px;
-  border-bottom: 1px solid #e0e0e0;
-  flex-shrink: 0;
-  flex-wrap: wrap;
-}
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  bottom: 20px;
+  width: 260px;
+  z-index: 10;
 
-.hint {
-  text-align: center;
-  line-height: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 22px 16px;
+
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border: 1px solid rgba(45, 45, 45, 0.5);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.04);
+
+  overflow-y: auto;
 }
 
 .site-title {
-  font-size: 13px;
+  font-family: 'Kalice', sans-serif;
+  font-size: 24px;
   letter-spacing: 1px;
-  color: #8a8a8a;
+  color: #000000;
 }
 
 .control-group {
   display: flex;
-  align-items: center;
-  gap: 8px;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .control-group label {
+  font-family: 'Kalice', sans-serif;
   font-size: 11px;
-  color: #aaa;
+  color: #000000;
   letter-spacing: 1px;
 }
 
-/* ── toggles ── */
+/*toggles*/
 .toggle-group {
   display: flex;
-  gap: 0;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  overflow: hidden;
+  gap: 4px;
+  flex-wrap: wrap;
 }
 
 .toggle {
   padding: 4px 10px;
   font-size: 11px;
   font-family: inherit;
-  background: #fff;
-  border: none;
-  border-right: 1px solid #ddd;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
   color: #aaa;
   cursor: pointer;
-}
-
-.toggle:last-child {
-  border-right: none;
+  transition: background 0.15s, color 0.15s;
 }
 
 .toggle:hover {
-  background: #f5f5f5;
-  color: #333;
+  background: rgba(108, 108, 108, 0.8);
+  color: #ffffff;
 }
 
 .toggle.on {
   background: #111;
   color: #fff;
+  border-color:  #111;
 }
 
 #downloadBtn {
-  padding: 4px 10px;
+  margin-top: auto;
+  padding: 6px 10px;
   font-size: 11px;
   font-family: inherit;
-  background: #fff;
-  border: none;
-  border-right: 1px solid #ddd;
-  color: #aaa;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+  color: #000000;
   cursor: pointer;
+  width: 100%;
+  transition: background 0.15s, color 0.15s;
 }
 
 #downloadBtn:hover {
-  background: #f5f5f5;
+  background: rgba(255, 255, 255, 0.8);
   color: #333;
 }
 
-/* ── display area ── */
+/* display area */
 main {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 20px;
+  padding: 40px 20px 40px 215px;
   overflow: auto;
-  /* background: rgba(255, 255, 255, 0.4); */
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
   background: transparent;
+}
+
+.hint-wrapper {
+  text-align: center;
+  line-height: 2;
 }
 
 #buttonsRow {
@@ -127,21 +145,20 @@ main {
 .btn-cell {
   position: absolute;
   cursor: grab;
-  width: 100px;
+  width: 100px; 
   height: 100px;
+  background: transparent;
+}
+
+#buttonsRow canvas {
+  display: block;
+  width: inherit;
+  height: inherit;
   background: transparent;
 }
 
 .btn-cell:active {
   cursor: grabbing;
-}
-
-#buttonsRow canvas {
-  display: block;
-  width: 100px;
-  height: 100px;
-  height: 100px;
-  background: transparent;
 }
 
 .btn-space {
@@ -150,12 +167,18 @@ main {
   flex-shrink: 0;
 }
 
+#sizeSlider {
+  width: 100%;
+  cursor: pointer;
+}
+
 .hint {
   font-size: 12px;
-  color: #ccc;
+  color: #777777;
   letter-spacing: 2px;
   position: absolute;
   pointer-events: none;
+  text-align: center;
 }
 
 #colorDisplay {
@@ -170,11 +193,6 @@ main {
   height: 22px;
   background: #111;
 }
-
-/* #buttonsRow canvas {
-  width: 100px; 
-  height: 100px;
-} */
 
 .thumb-btn {
   width: 32px;

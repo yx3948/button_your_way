@@ -6,7 +6,7 @@ document.getElementById('downloadBtn').addEventListener('click', () => {
   const aRect   = area.getBoundingClientRect();
   const W       = Math.round(aRect.width);
   const H       = Math.round(aRect.height);
-  const btnSize = 100; // CSS display size of each button
+  const btnSize = 100; //display size of each button
 
   const exp  = document.createElement('canvas');
   exp.width  = W;
