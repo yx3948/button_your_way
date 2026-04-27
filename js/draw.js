@@ -32,9 +32,8 @@ function getInitialPosition(index) {
 
 
 function rebuildAll() {
+  if (sequence.length === 0) return;
   buttonsRow.innerHTML = '';
-  if (sequence.length === 0) { hint.style.display = 'block'; return; }
-  hint.style.display = 'none';
   sequence.forEach((item, i) => {
     if (item.x == null) {
       const pos = getInitialPosition(i);
@@ -47,7 +46,7 @@ function rebuildAll() {
 }
 
 function appendCell(item) {
-  hint.style.display = 'none';
+  // hint.style.display = 'none';
   const i   = sequence.length - 1;
   const pos = getInitialPosition(i);
   item.x        = pos.x;
@@ -59,12 +58,12 @@ function appendCell(item) {
 function removeLastCell() {
   const cells = buttonsRow.querySelectorAll('.btn-cell');
   if (cells.length > 0) cells[cells.length - 1].remove();
-  if (sequence.length === 0) hint.style.display = 'block';
+  // if (sequence.length === 0) hint.style.display = 'block';
 }
 
 function clearDisplay() {
   buttonsRow.innerHTML = '';
-  hint.style.display = 'block';
+  // hint.style.display = 'block';
 }
 
 function _makeCell(item, idx) {

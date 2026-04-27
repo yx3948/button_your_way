@@ -120,6 +120,11 @@ document.getElementById('bgUpload').addEventListener('change', e => {
   e.target.value = '';
 });
 
+// ── blur input when using header controls ──
+document.querySelector('header').addEventListener('mousedown', () => {
+  textInput.blur();
+});
+
 // ── click display → focus input ───────────
 document.getElementById('displayArea').addEventListener('click', () => textInput.focus());
 textInput.focus();
