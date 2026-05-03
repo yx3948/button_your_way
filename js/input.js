@@ -128,3 +128,11 @@ document.querySelector('header').addEventListener('mousedown', () => {
 // ── click display → focus input ───────────
 document.getElementById('displayArea').addEventListener('click', () => textInput.focus());
 textInput.focus();
+
+// ── collapse sidebar ──────────────────────
+document.getElementById('collapseBtn').addEventListener('click', () => {
+  const header = document.querySelector('header');
+  const btn = document.getElementById('collapseBtn');
+  header.classList.toggle('collapsed');
+  btn.textContent = header.classList.contains('collapsed') ? '+' : '−';
+});
