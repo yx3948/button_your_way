@@ -53,7 +53,17 @@ document.getElementById('holeTabs').addEventListener('click', e => {
   rebuildAll();
 });
 
-// ── thread colour ─────────────────────────
+// ── style switcher ────────────────────────
+document.getElementById('styleTabs').addEventListener('click', e => {
+  const btn = e.target.closest('[data-style]');
+  if (!btn) return;
+  document.querySelectorAll('#styleTabs .toggle').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  currentStyle = btn.dataset.style;
+  rebuildAll();
+});
+
+// ── thread color ─────────────────────────
 document.getElementById('colorWheel').addEventListener('input', e => {
   currentColor = e.target.value;
   document.getElementById('colorSwatch').style.background = e.target.value;

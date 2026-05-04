@@ -53,7 +53,7 @@ header {
 .site-title {
   font-family: 'Kalice', sans-serif;
   font-size: 24px;
-  letter-spacing: 1px;
+  /* letter-spacing: 1px; */
   color: #000000;
 }
 
@@ -68,7 +68,7 @@ header {
   font-family: 'Kalice', sans-serif;
   font-size: 11px;
   color: #000000;
-  letter-spacing: 1px;
+  /* letter-spacing: 1px; */
 }
 
 /*toggles*/
@@ -201,7 +201,7 @@ main {
 .hint {
   font-size: 12px;
   color: #777777;
-  letter-spacing: 2px;
+  /* letter-spacing: 1.2px; */
   /* position: absolute; */
   pointer-events: none;
   text-align: left;

@@ -30,7 +30,7 @@ document.getElementById('downloadBtn').addEventListener('click', () => {
       tmp.width = RENDER_SIZE;
       tmp.height = RENDER_SIZE;
       const patImg = patterns.length > 0 ? patterns[item.patIdx] : null;
-      renderButton(tmp, item.char, patImg, currentCfg, currentColor);
+      renderCurrentStyle(tmp, item.char, patImg, currentCfg, currentColor, currentStyle);
 
       ctx.save();
       ctx.translate(cx, cy);
