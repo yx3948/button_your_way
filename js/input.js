@@ -1,7 +1,7 @@
 // input.js
 const textInput = document.getElementById('textInput');
 
-const PATTERN_COUNT = 26;
+const PATTERN_COUNT = 46;
 
 (async () => {
   const results = await Promise.all(
