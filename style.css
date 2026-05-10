@@ -264,3 +264,15 @@ header.collapsed .hint,
 header.collapsed #downloadBtn {
   display: none;
 }
+
+.credit-link {
+  font-size: 10px;
+  color: #999;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.credit-link:hover {
+  color: #111;
+}
